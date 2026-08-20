@@ -408,7 +408,7 @@ function Dashboard({ theme }) {
       fontSize: "13px",
     },
 
-    appButtons: {
+    appButton: {
       display: "flex",
       gap: "10px",
       marginTop: "15px",
@@ -719,12 +719,7 @@ function Dashboard({ theme }) {
                   Apply Now
                 </button>
 
-                <button
-                  style={styles.applyBtn}
-                  onClick={() => saveJob(job.title)}
-                >
-                  Save Job
-                </button>
+                
               </div>
             ))}
           </div>
