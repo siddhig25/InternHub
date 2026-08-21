@@ -1,70 +1,266 @@
-# Getting Started with Create React App
+# InternHub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+InternHub is a full-stack internship portal that helps students find and apply for internship opportunities. Users can browse available internships, view job details, submit applications, upload resumes, and track their application status.
 
-## Available Scripts
+The project also includes an admin dashboard where administrators can view and manage internship applications.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### User Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* User registration and login
+* Secure password authentication
+* Browse internship opportunities
+* View internship details
+* Apply for internships
+* Upload resume while applying
+* View submitted applications
+* Track application status
+* Responsive design for desktop, tablet, and mobile
+* Dark and light theme
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Admin Features
 
-### `npm test`
+* Admin login
+* Admin-only dashboard access
+* View internship applications
+* View applicant details
+* View applicant resumes
+* Accept applications
+* Reject applications
+* View application statistics
+* Admin logout
+* Accepted and rejected applications are removed from the active application list
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
+### Frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* React.js
+* Create React App
+* React Router
+* Axios
+* JavaScript
+* HTML5
+* CSS3
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Backend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* bcrypt.js
 
-### `npm run eject`
+### Tools
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* Visual Studio Code
+* MongoDB Compass
+* Postman
+* Git
+* GitHub
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```text
+InternHub/
+│
+├── backend/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── .env
+│   └── server.js
+│
+├── frontend/
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── App.js
+│       ├── App.css
+│       └── index.js
+│
+├── .gitignore
+└── README.md
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Getting Started
 
-## Learn More
+### 1. Clone the Repository
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+git clone https://github.com/siddhig25/InternHub.git
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 2. Open the Project
 
-### Code Splitting
+```bash
+cd InternHub
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Backend Setup
 
-### Analyzing the Bundle Size
+Go to the backend folder:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+cd backend
+```
 
-### Making a Progressive Web App
+Install the required packages:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm install
+```
 
-### Advanced Configuration
+Create a `.env` file inside the `backend` folder:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+PORT=5000
+```
 
-### Deployment
+Start the backend server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+node server.js
+```
 
-### `npm run build` fails to minify
+The backend runs on:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```text
+http://localhost:5000
+```
+
+## Frontend Setup
+
+Open another terminal and go to the frontend folder:
+
+```bash
+cd frontend
+```
+
+Install the required packages:
+
+```bash
+npm install
+```
+
+Start the React development server:
+
+```bash
+npm start
+```
+
+The application will open at:
+
+```text
+http://localhost:3000
+```
+
+## Database
+
+InternHub uses MongoDB to store:
+
+* User accounts
+* Internship/job information
+* Internship applications
+* Application status
+
+MongoDB Compass can be used to view and manage the database during development.
+
+## Authentication
+
+InternHub uses JWT-based authentication for login and protected routes.
+
+* bcrypt.js is used for password hashing
+* JWT is used for authentication
+* User roles are used to control access to the admin dashboard
+
+The two main roles are:
+
+```text
+user
+admin
+```
+
+Only users with the `admin` role can access the Admin Dashboard.
+
+## Admin Dashboard
+
+The Admin Dashboard provides administrators with a central place to manage applications.
+
+Administrators can:
+
+1. View total applications
+2. View pending applications
+3. View applicant information
+4. View applicant resumes
+5. Accept applications
+6. Reject applications
+7. Manage application status
+
+Once an application is accepted or rejected, it is removed from the active application list shown on the Admin Dashboard.
+
+## Responsive Design
+
+The application is designed to work on:
+
+* Desktop
+* Tablet
+* Mobile
+
+The layout adjusts according to the screen size.
+
+## Theme Support
+
+InternHub supports both:
+
+* Dark mode
+* Light mode
+
+Users can switch between the two themes using the theme button in the navigation bar.
+
+## Pages
+
+The application currently includes:
+
+* Home
+* About InternHub
+* Jobs
+* Login
+* Signup
+* Dashboard
+* Applications
+* Admin Dashboard
+
+## Future Improvements
+
+Some features that could be added in the future:
+
+* Internship search and filtering
+* Email notifications
+* Forgot password
+* Admin job management
+* User profile management
+* Application analytics
+* Company accounts
+* Internship recommendations
+* Cloud deployment
+* Online resume builder
+
+## Author
+
+**Siddhi Ghodke**
+
+BCA Graduate | Web Development & MERN Stack
+
+## Project Status
+
+**Active Development**
+
+InternHub is a full-stack internship portal developed as a web development project using the MERN stack.
+
+
