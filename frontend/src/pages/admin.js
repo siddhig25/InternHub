@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+﻿import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -16,9 +16,7 @@ function Admin({ theme }) {
 
   const isDark = theme === "dark";
 
-  // =========================================
   // FETCH APPLICATIONS
-  // =========================================
   const fetchApps = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
@@ -39,20 +37,18 @@ function Admin({ theme }) {
       if (err.response?.status === 401) {
         localStorage.clear();
 
-        alert("⚠ Session Expired");
+        alert(" Session Expired");
 
         navigate("/login");
       } else {
-        alert("❌ Failed To Load Applications");
+        alert(" Failed To Load Applications");
       }
     } finally {
       setLoading(false);
     }
   }, [navigate]);
 
-  // =========================================
   // ADMIN SECURITY CHECK
-  // =========================================
   useEffect(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
@@ -60,13 +56,13 @@ function Admin({ theme }) {
     console.log("ROLE:", role);
 
     if (!token) {
-      alert("⚠ Please Login First");
+      alert(" Please Login First");
       navigate("/login");
       return;
     }
 
     if (role !== "admin") {
-      alert("⚠ Access Denied. Admin Only");
+      alert(" Access Denied. Admin Only");
       navigate("/");
       return;
     }
@@ -86,9 +82,7 @@ function Admin({ theme }) {
     };
   }, [showDetails]);
 
-  // =========================================
   // UPDATE APPLICATION STATUS
-  // =========================================
   const updateStatus = async (id, status) => {
     try {
       const token = localStorage.getItem("token");
@@ -114,7 +108,7 @@ function Admin({ theme }) {
         });
       }
 
-      setPopupMessage(`✅ Application ${status}`);
+      setPopupMessage(` Application ${status}`);
       setShowPopupMessage(true);
 
       setTimeout(() => {
@@ -123,7 +117,7 @@ function Admin({ theme }) {
     } catch (err) {
       console.log("Update Status Error:", err);
 
-      setPopupMessage("❌ Failed To Update Status");
+      setPopupMessage(" Failed To Update Status");
       setShowPopupMessage(true);
 
       setTimeout(() => {
@@ -132,34 +126,26 @@ function Admin({ theme }) {
     }
   };
 
-  // =========================================
   // OPEN DETAILS POPUP
-  // =========================================
   const openDetails = (app) => {
     setSelectedApp(app);
     setShowDetails(true);
   };
 
-  // =========================================
   // CLOSE POPUP
-  // =========================================
   const closeDetails = () => {
     setSelectedApp(null);
     setShowDetails(false);
   };
 
-  // =========================================
   // FORMAT DATE
-  // =========================================
   const formatDate = (date) => {
     if (!date) return "N/A";
 
     return new Date(date).toLocaleDateString("en-IN");
   };
 
-  // =========================================
   // FORMAT TIME
-  // =========================================
   const formatTime = (date) => {
     if (!date) return "N/A";
 
@@ -169,9 +155,7 @@ function Admin({ theme }) {
     });
   };
 
-  // =========================================
   // STATUS COLORS
-  // =========================================
   const getStatusColor = (status) => {
     if (status === "Accepted") return "#16a34a";
 
@@ -180,9 +164,7 @@ function Admin({ theme }) {
     return "#facc15";
   };
 
-  // =========================================
   // VIEW RESUME
-  // =========================================
   const viewResume = (resumeURL) => {
     if (!resumeURL) {
       alert("Resume Not Uploaded");
@@ -192,9 +174,7 @@ function Admin({ theme }) {
     window.open(resumeURL, "_blank");
   };
 
-  // =========================================
   // STYLES
-  // =========================================
   const styles = {
     page: {
       padding: window.innerWidth < 768 ? "20px" : "50px",
@@ -353,9 +333,7 @@ function Admin({ theme }) {
       fontSize: "18px",
     },
 
-    // =========================================
     // POPUP STYLES
-    // =========================================
     overlay: {
       position: "fixed",
       top: 0,
@@ -580,15 +558,15 @@ function Admin({ theme }) {
               </div>
 
               <div style={styles.infoGrid}>
-                <p style={styles.info}>👤 {app.userName}</p>
+                <p style={styles.info}> {app.userName}</p>
 
-                <p style={styles.info}>📧 {app.userEmail}</p>
+                <p style={styles.info}> {app.userEmail}</p>
 
-                <p style={styles.info}>📞 {app.phone}</p>
+                <p style={styles.info}> {app.phone}</p>
 
-                <p style={styles.info}>🎓 {app.college}</p>
+                <p style={styles.info}> {app.college}</p>
 
-                <p style={styles.info}>📅 {formatDate(app.createdAt)}</p>
+                <p style={styles.info}> {formatDate(app.createdAt)}</p>
               </div>
 
               <div style={styles.buttonWrap}>
@@ -631,3 +609,5 @@ function Admin({ theme }) {
 }
 
 export default Admin;
+
+

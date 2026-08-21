@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -13,14 +13,14 @@ function Applications({ theme }) {
 
   const isDark = theme === "dark";
 
-  // ✅ CHECK LOGIN + FETCH APPLICATIONS
+  // CHECK LOGIN + FETCH APPLICATIONS
   useEffect(() => {
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
 
-    // 🔥 PROTECTED PAGE
+    
     if (!token || !email) {
-      alert("⚠ Please Login First");
+      alert(" Please Login First");
       navigate("/login");
       return;
     }
@@ -28,7 +28,7 @@ function Applications({ theme }) {
     fetchApplications();
   }, [navigate]);
 
-  // ✅ FETCH APPLICATIONS
+  // FETCH APPLICATIONS
   const fetchApplications = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -48,10 +48,10 @@ function Applications({ theme }) {
     } catch (err) {
       console.log(err);
 
-      // 🔥 INVALID TOKEN
+      //  TOKEN
       if (err.response?.status === 401) {
         localStorage.clear();
-        alert("⚠ Session Expired. Please Login Again");
+        alert(" Session Expired. Please Login Again");
         navigate("/login");
       }
 
@@ -59,7 +59,7 @@ function Applications({ theme }) {
     }
   };
 
-  // ✅ STATUS COLORS
+  // STATUS COLORS
   const getStatusColor = (status) => {
     if (status === "Accepted") return "#22c55e";
 
@@ -68,14 +68,14 @@ function Applications({ theme }) {
     return "#facc15";
   };
 
-  // ✅ FORMAT DATE
+  // FORMAT DATE
   const formatDate = (date) => {
     const newDate = new Date(date);
 
     return newDate.toLocaleDateString("en-GB");
   };
 
-  // ✅ FORMAT TIME
+  // FORMAT TIME
   const formatTime = (date) => {
     const newDate = new Date(date);
 
@@ -85,7 +85,7 @@ function Applications({ theme }) {
     });
   };
 
-  // ✅ OPEN DETAILS
+  // OPEN DETAILS
   const openDetails = (app) => {
     setSelectedApp(app);
     setShowDetails(true);
@@ -306,7 +306,6 @@ function Applications({ theme }) {
       fontSize: window.innerWidth <= 768 ? "14px" : "15px",
     },
   };
-
   return (
     <div style={styles.page}>
       <h1 style={styles.title}>
@@ -317,7 +316,7 @@ function Applications({ theme }) {
         Track your internship applications and recruitment progress
       </p>
 
-      {/* ✅ STATS */}
+      {/* STATS */}
       <div style={styles.statsBox}>
         <div style={styles.statCard}>
           <h2 style={styles.statNumber}>{apps.length}</h2>
@@ -346,11 +345,11 @@ function Applications({ theme }) {
         </div>
       </div>
 
-      {/* ✅ APPLICATIONS */}
+      {/* APPLICATIONS */}
       {loading ? (
         <p style={styles.loading}>Loading applications...</p>
       ) : apps.length === 0 ? (
-        <p style={styles.empty}>No applications submitted yet 🚀</p>
+        <p style={styles.empty}>No applications submitted yet</p>
       ) : (
         <div style={styles.grid}>
           {apps.map((app) => (
@@ -370,23 +369,21 @@ function Applications({ theme }) {
 
               <p style={styles.company}>{app.company}</p>
 
-              <p style={styles.info}>📍 {app.location}</p>
+              <p style={styles.info}> {app.location}</p>
 
-              <p style={styles.info}>💼 {app.type}</p>
+              <p style={styles.info}> {app.type}</p>
 
-              <p style={styles.info}>💰 {app.salary}</p>
+              <p style={styles.info}> {app.salary}</p>
 
-              <p style={styles.info}>⏳ {app.duration}</p>
+              <p style={styles.info}>{app.duration}</p>
 
-              <p style={styles.info}>
-                🛠 Skills: {app.skills || "Not specified"}
-              </p>
+              <p style={styles.info}>{app.skills || "Not specified"}</p>
 
               <hr style={styles.divider} />
 
               <div style={styles.footer}>
                 <p style={styles.appliedDate}>
-                  📅 {formatDate(app.createdAt || new Date())}
+                  Applied On: {formatDate(app.createdAt || new Date())}
                 </p>
 
                 <button style={styles.viewBtn} onClick={() => openDetails(app)}>
@@ -398,7 +395,7 @@ function Applications({ theme }) {
         </div>
       )}
 
-      {/* ✅ DETAILS POPUP */}
+      {/* DETAILS POPUP */}
       {showDetails && selectedApp && (
         <div style={styles.overlay}>
           <div style={styles.popup}>
@@ -406,38 +403,38 @@ function Applications({ theme }) {
 
             <p style={styles.popupCompany}>{selectedApp.company}</p>
 
-            <p style={styles.info}>👤 Applicant: {selectedApp.userName}</p>
+            <p style={styles.info}>Applicant: {selectedApp.userName}</p>
 
-            <p style={styles.info}>📧 Email: {selectedApp.userEmail}</p>
+            <p style={styles.info}>{selectedApp.userEmail}</p>
 
-            <p style={styles.info}>📞 Phone: {selectedApp.phone}</p>
+            <p style={styles.info}>{selectedApp.phone}</p>
 
-            <p style={styles.info}>🎓 College: {selectedApp.college}</p>
+            <p style={styles.info}>College: {selectedApp.college}</p>
 
-            <p style={styles.info}>📍 Location: {selectedApp.location}</p>
+            <p style={styles.info}>Location: {selectedApp.location}</p>
 
-            <p style={styles.info}>💼 Type: {selectedApp.type}</p>
+            <p style={styles.info}>{selectedApp.type}</p>
 
-            <p style={styles.info}>💰 Salary: {selectedApp.salary}</p>
+            <p style={styles.info}>Salary: {selectedApp.salary}</p>
 
             <p style={styles.info}>⏳ Duration: {selectedApp.duration}</p>
 
-            <p style={styles.info}>🛠 Skills Required: {selectedApp.skills}</p>
+            <p style={styles.info}>Required: {selectedApp.skills}</p>
 
-            <p style={styles.info}>📄 Resume: {selectedApp.resumeName}</p>
+            <p style={styles.info}>Resume: {selectedApp.resumeName}</p>
 
             <p style={styles.info}>
-              📝 Cover Letter:
+              Cover Letter:
               <br />
               {selectedApp.coverLetter || "No cover letter"}
             </p>
 
             <p style={styles.info}>
-              📅 Applied On: {formatDate(selectedApp.createdAt || new Date())}
+              Applied On: {formatDate(selectedApp.createdAt || new Date())}
             </p>
 
             <p style={styles.info}>
-              🕒 Time: {formatTime(selectedApp.createdAt || new Date())}
+              {formatTime(selectedApp.createdAt || new Date())}
             </p>
 
             <button

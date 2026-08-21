@@ -5,13 +5,13 @@ require("dotenv").config();
 
 const app = express();
 
-// ✅ Middleware
+//  Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ Routes
+//  Routes
 const authRoutes = require("./routes/auth");
-const jobRoutes = require("./routes/jobroutes");
+const jobRoutes = require("./routes/jobRoutes");
 const applicationRoutes = require("./routes/applicationRoutes");
 
 app.use("/api/applications", applicationRoutes);
@@ -19,7 +19,7 @@ app.use("/api/applications", applicationRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
 
-// ✅ MongoDB Connection
+//  MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {

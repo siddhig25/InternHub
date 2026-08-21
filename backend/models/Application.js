@@ -1,10 +1,8 @@
-const mongoose = require("mongoose");
+﻿const mongoose = require("mongoose");
 
 const applicationSchema = new mongoose.Schema(
   {
-    // =========================
     // USER INFO
-    // =========================
     userName: {
       type: String,
       required: true,
@@ -29,9 +27,7 @@ const applicationSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // =========================
     // EXTRA USER DETAILS
-    // =========================
     userSkills: {
       type: String,
       default: "",
@@ -62,9 +58,7 @@ const applicationSchema = new mongoose.Schema(
       default: "No Resume Uploaded",
     },
 
-    // =========================
     // JOB DETAILS
-    // =========================
     jobId: {
       type: String,
       required: true,
@@ -112,9 +106,7 @@ const applicationSchema = new mongoose.Schema(
       default: "",
     },
 
-    // =========================
     // APPLICATION STATUS
-    // =========================
     status: {
       type: String,
       default: "Pending",
@@ -127,3 +119,5 @@ const applicationSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("Application", applicationSchema);
+
+

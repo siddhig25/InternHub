@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -8,29 +8,29 @@ function Dashboard({ theme }) {
   const [name, setName] = useState("User");
   const [currentTime, setCurrentTime] = useState("");
 
-  // 🔥 RESUME STATES
+  // RESUME STATES
   const [resumeName, setResumeName] = useState("No Resume Uploaded");
   const [resumeFileURL, setResumeFileURL] = useState("");
 
-  // 🔥 OTHER STATES
+  // OTHER STATES
   const [applications, setApplications] = useState([]);
   const [savedJobs, setSavedJobs] = useState([]);
   const [notificationsList, setNotificationsList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔥 POPUP STATES
+  //  POPUP STATES
   const [showPopup, setShowPopup] = useState(false);
   const [selectedApplication, setSelectedApplication] = useState(null);
 
   const isDark = theme === "dark";
 
-  // 🔥 CHECK LOGIN
+  //  CHECK LOGIN
   useEffect(() => {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("name");
     const email = localStorage.getItem("email");
 
-    // 🔥 ONLY LOGGED IN USERS
+    //  ONLY LOGGED IN USERS
     if (!token) {
       navigate("/login");
       return;
@@ -38,7 +38,7 @@ function Dashboard({ theme }) {
 
     setName(username || "User");
 
-    // 🔥 LOAD SAVED RESUME
+    //  LOAD SAVED RESUME
     const savedResumeName = localStorage.getItem("resumeName");
     const savedResumeURL = localStorage.getItem("resumeURL");
 
@@ -50,25 +50,25 @@ function Dashboard({ theme }) {
       setResumeFileURL(savedResumeURL);
     }
 
-    // 🔥 LIVE CLOCK
+    //  LIVE CLOCK
     updateTime();
 
     const interval = setInterval(updateTime, 1000);
 
-    // 🔥 FETCH APPLICATIONS
+    //  FETCH APPLICATIONS
     fetchApplications(email);
 
-    // 🔥 DEFAULT NOTIFICATIONS
+    //  DEFAULT NOTIFICATIONS
     setNotificationsList([
-      "🔥 New AI Internship added",
-      "⭐ Complete your profile to boost visibility",
-      "📅 Keep your resume updated",
+      " New AI Internship added",
+      " Complete your profile to boost visibility",
+      " Keep your resume updated",
     ]);
 
     return () => clearInterval(interval);
   }, [navigate]);
 
-  // 🔥 FETCH APPLICATIONS
+  //  FETCH APPLICATIONS
   const fetchApplications = async (email) => {
     try {
       const token = localStorage.getItem("token");
@@ -92,7 +92,7 @@ function Dashboard({ theme }) {
     }
   };
 
-  // 🔥 CLOCK
+  //  CLOCK
   const updateTime = () => {
     const now = new Date();
 
@@ -104,7 +104,7 @@ function Dashboard({ theme }) {
     );
   };
 
-  // 🔥 LOGOUT
+  //  LOGOUT
   const logout = () => {
     localStorage.clear();
 
@@ -115,22 +115,9 @@ function Dashboard({ theme }) {
     window.location.reload();
   };
 
-  // 🔥 SAVE JOB
-  const saveJob = (title) => {
-    if (savedJobs.includes(title)) {
-      alert(`${title} already saved`);
+  
 
-      return;
-    }
-
-    setSavedJobs([...savedJobs, title]);
-
-    setNotificationsList((prev) => [`⭐ Saved ${title}`, ...prev]);
-
-    alert(`${title} saved successfully`);
-  };
-
-  // 🔥 VIEW DETAILS POPUP
+  // VIEW DETAILS POPUP
   const viewApplication = (jobTitle) => {
     const selectedJob = applications.find((app) => app.jobTitle === jobTitle);
 
@@ -143,13 +130,13 @@ function Dashboard({ theme }) {
     setShowPopup(true);
   };
 
-  // 🔥 UPLOAD RESUME
+  // UPLOAD RESUME
   const uploadResume = (e) => {
     const file = e.target.files[0];
 
     if (!file) return;
 
-    // 🔥 FILE VALIDATION
+    //  FILE VALIDATION
     const allowedTypes = [
       "application/pdf",
       "application/msword",
@@ -162,27 +149,27 @@ function Dashboard({ theme }) {
       return;
     }
 
-    // 🔥 CREATE FILE URL
+    //  CREATE FILE URL
     const fileURL = URL.createObjectURL(file);
 
-    // 🔥 SAVE
+    //  SAVE
     setResumeName(file.name);
     setResumeFileURL(fileURL);
 
-    // 🔥 STORE IN LOCAL STORAGE
+    // STORE IN LOCAL STORAGE
     localStorage.setItem("resumeName", file.name);
     localStorage.setItem("resumeURL", fileURL);
 
-    // 🔥 NOTIFICATIONS
+    //  NOTIFICATIONS
     setNotificationsList((prev) => [
-      `📄 Resume uploaded: ${file.name}`,
+      ` Resume uploaded: ${file.name}`,
       ...prev,
     ]);
 
     alert("Resume uploaded successfully");
   };
 
-  // 🔥 VIEW RESUME
+  // VIEW RESUME
   const viewResume = () => {
     if (!resumeFileURL) {
       alert("No resume uploaded");
@@ -193,7 +180,7 @@ function Dashboard({ theme }) {
     window.open(resumeFileURL, "_blank");
   };
 
-  // 🔥 DELETE RESUME
+  //  DELETE RESUME
   const deleteResume = () => {
     if (!resumeFileURL) {
       alert("No resume uploaded");
@@ -207,12 +194,12 @@ function Dashboard({ theme }) {
     localStorage.removeItem("resumeName");
     localStorage.removeItem("resumeURL");
 
-    setNotificationsList((prev) => ["🗑️ Resume deleted successfully", ...prev]);
+    setNotificationsList((prev) => ["ðŸ—‘ï¸ Resume deleted successfully", ...prev]);
 
     alert("Resume deleted successfully");
   };
 
-  // 🔥 REMOVE NOTIFICATION
+  //  REMOVE NOTIFICATION
   const removeNotification = (index) => {
     const updated = [...notificationsList];
 
@@ -221,28 +208,28 @@ function Dashboard({ theme }) {
     setNotificationsList(updated);
   };
 
-  // 🔥 RECOMMENDED JOBS
+  //  RECOMMENDED JOBS
   const recommendedJobs = [
     {
       title: "AI/ML Engineer",
       company: "OpenAI",
-      type: "Remote • Full Time",
+      type: "Remote  Full Time",
     },
 
     {
       title: "Backend Developer",
       company: "Microsoft",
-      type: "Bangalore • Internship",
+      type: "Bangalore  Internship",
     },
 
     {
       title: "Marketing Intern",
       company: "Amazon",
-      type: "Hybrid • Internship",
+      type: "Hybrid  Internship",
     },
   ];
 
-  // 🔥 STATUS COLORS
+  //  STATUS COLORS
   const getStatusColor = (status) => {
     if (status === "Accepted") return "#16a34a";
 
@@ -251,7 +238,7 @@ function Dashboard({ theme }) {
     return "#facc15";
   };
 
-  // 🔥 STYLES
+  //  STYLES
   const styles = {
     page: {
       minHeight: "100vh",
@@ -607,7 +594,7 @@ function Dashboard({ theme }) {
       <section style={styles.topBar}>
         <div>
           <h1 style={styles.title}>
-            Welcome Back, <span style={styles.gold}>{name}</span> 👋
+            Welcome Back, <span style={styles.gold}>{name}</span>
           </h1>
         </div>
 
@@ -657,7 +644,7 @@ function Dashboard({ theme }) {
             {loading ? (
               <p style={styles.loading}>Loading applications...</p>
             ) : applications.length === 0 ? (
-              <p>No applications submitted yet 🚀</p>
+              <p>No applications submitted yet ðŸš€</p>
             ) : (
               applications.map((app, index) => (
                 <div key={index} style={styles.applicationCard}>
@@ -688,12 +675,7 @@ function Dashboard({ theme }) {
                       View Details
                     </button>
 
-                    <button
-                      style={styles.smallBtn}
-                      onClick={() => saveJob(app.jobTitle)}
-                    >
-                      Save
-                    </button>
+                    
                   </div>
                 </div>
               ))
@@ -787,7 +769,7 @@ function Dashboard({ theme }) {
                     Remove
                   </button>
 
-                  {/* 🔥 APPLICATION DETAILS POPUP */}
+                  {/*  APPLICATION DETAILS POPUP */}
                   {showPopup && selectedApplication && (
                     <div style={styles.popupOverlay}>
                       <div style={styles.popupBox}>
@@ -800,11 +782,11 @@ function Dashboard({ theme }) {
                         </p>
 
                         <p style={styles.popupInfo}>
-                          📍 Location: {selectedApplication.location}
+                           Location: {selectedApplication.location}
                         </p>
 
                         <p style={styles.popupInfo}>
-                          💼 Status:{" "}
+                          Status:{" "}
                           <span
                             style={{
                               color: getStatusColor(selectedApplication.status),
@@ -816,11 +798,11 @@ function Dashboard({ theme }) {
                         </p>
 
                         <p style={styles.popupInfo}>
-                          📧 Applicant Email: {selectedApplication.userEmail}
+                           Applicant Email: {selectedApplication.userEmail}
                         </p>
 
                         <p style={styles.popupInfo}>
-                          📅 Applied On:{" "}
+                           Applied On:{" "}
                           {new Date(
                             selectedApplication.createdAt,
                           ).toLocaleDateString()}
@@ -846,3 +828,5 @@ function Dashboard({ theme }) {
 }
 
 export default Dashboard;
+
+

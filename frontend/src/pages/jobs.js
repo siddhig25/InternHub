@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -42,9 +42,7 @@ function Jobs({ theme }) {
 
   const isDark = theme === "dark";
 
-  // =====================================
   // FETCH JOBS
-  // =====================================
   const fetchJobs = async () => {
     try {
       setLoading(true);
@@ -60,7 +58,7 @@ function Jobs({ theme }) {
           location: "Hyderabad",
           type: "Internship",
           description: "Develop scalable UI/UX using react.js",
-          salary: "₹20,000/month",
+          salary: "20,000/month",
           duration: "5 Months",
           skills: "React.js,html,css,javascript",
         },
@@ -73,7 +71,7 @@ function Jobs({ theme }) {
           type: "Internship",
           description:
             "Develop scalable APIs and backend systems using Node.js.",
-          salary: "₹30,000/month",
+          salary: "30,000/month",
           duration: "4 Months",
           skills: "Node.js, MongoDB, Express",
         },
@@ -86,7 +84,7 @@ function Jobs({ theme }) {
           type: "Full Time",
           description:
             "Design modern user interfaces and smooth user experiences.",
-          salary: "₹40,000/month",
+          salary: "40,000/month",
           duration: "Permanent",
           skills: "Figma, UI Design, Adobe XD",
         },
@@ -98,7 +96,7 @@ function Jobs({ theme }) {
           location: "Pune",
           type: "Internship",
           description: "Analyze business data and create strategic reports.",
-          salary: "₹22,000/month",
+          salary: "22,000/month",
           duration: "5 Months",
           skills: "Excel, Analytics, Communication",
         },
@@ -110,7 +108,7 @@ function Jobs({ theme }) {
           location: "Hybrid",
           type: "Internship",
           description: "Handle social media marketing and digital campaigns.",
-          salary: "₹18,000/month",
+          salary: "18,000/month",
           duration: "3 Months",
           skills: "SEO, Marketing, Social Media",
         },
@@ -123,7 +121,7 @@ function Jobs({ theme }) {
           type: "Internship",
           description:
             "Work with machine learning models and business datasets.",
-          salary: "₹35,000/month",
+          salary: "35,000/month",
           duration: "6 Months",
           skills: "Python, ML, Data Analysis",
         },
@@ -135,7 +133,7 @@ function Jobs({ theme }) {
           location: "Mumbai",
           type: "Full Time",
           description: "Protect enterprise systems and monitor cyber threats.",
-          salary: "₹50,000/month",
+          salary: "50,000/month",
           duration: "Permanent",
           skills: "Cyber Security, Networking, Linux",
         },
@@ -148,7 +146,7 @@ function Jobs({ theme }) {
           type: "Full Time",
           description:
             "Build intelligent AI systems and machine learning pipelines.",
-          salary: "₹80,000/month",
+          salary: "80,000/month",
           duration: "Permanent",
           skills: "Python, AI, Deep Learning",
         },
@@ -157,7 +155,7 @@ function Jobs({ theme }) {
       // Database Jobs
       const databaseJobs = Array.isArray(res.data) ? res.data : [];
 
-      // ✅ REMOVE Frontend Developer Intern
+      // âœ… REMOVE Frontend Developer Intern
       const cleanedDatabaseJobs = databaseJobs.filter(
         (job) =>
           job.title?.trim().toLowerCase() !== "frontend developer intern",
@@ -170,22 +168,18 @@ function Jobs({ theme }) {
       setFilteredJobs(allJobs);
     } catch (error) {
       console.log("Fetch Jobs Error:", error);
-      alert("❌ Failed to load jobs");
+      alert("Failed to load jobs");
     } finally {
       setLoading(false);
     }
   };
 
-  // =====================================
   // LOAD JOBS
-  // =====================================
   useEffect(() => {
     fetchJobs();
   }, []);
 
-  // =====================================
   // FILTER JOBS
-  // =====================================
   useEffect(() => {
     let updatedJobs = [...jobs];
 
@@ -210,14 +204,12 @@ function Jobs({ theme }) {
     setFilteredJobs(updatedJobs);
   }, [search, selectedType, jobs]);
 
-  // =====================================
   // OPEN APPLY FORM
-  // =====================================
   const openApplyForm = (job) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("⚠ Please Login First");
+      alert(" Please Login First");
       navigate("/login");
       return;
     }
@@ -243,9 +235,7 @@ function Jobs({ theme }) {
     setShowForm(true);
   };
 
-  // =====================================
   // HANDLE INPUT
-  // =====================================
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -260,9 +250,7 @@ function Jobs({ theme }) {
     });
   };
 
-  // =====================================
   // RESUME UPLOAD
-  // =====================================
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
 
@@ -275,12 +263,12 @@ function Jobs({ theme }) {
     ];
 
     if (!allowedTypes.includes(file.type)) {
-      alert("⚠ Only PDF or DOC files allowed");
+      alert(" Only PDF or DOC files allowed");
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert("⚠ File size must be under 5MB");
+      alert(" File size must be under 5MB");
       return;
     }
 
@@ -331,14 +319,12 @@ function Jobs({ theme }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  // =====================================
   // SUBMIT APPLICATION
-  // =====================================
   const submitApplication = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("⚠ Please Login First");
+      alert(" Please Login First");
       navigate("/login");
       return;
     }
@@ -400,26 +386,24 @@ function Jobs({ theme }) {
       if (err.response?.status === 401) {
         localStorage.clear();
 
-        alert("⚠ Session Expired. Please Login Again");
+        alert("  Session Expired. Please Login Again");
 
         navigate("/login");
         return;
       }
 
       if (err.response?.status === 409) {
-        alert("⚠ You already applied for this job");
+        alert("  You already applied for this job");
         return;
       }
 
-      alert("❌ Application Failed");
+      alert("Application Failed");
     } finally {
       setSubmitting(false);
     }
   };
 
-  // =====================================
   // STYLES
-  // =====================================
 
   const styles = {
     page: {
@@ -692,7 +676,7 @@ function Jobs({ theme }) {
     <div style={styles.page}>
       {successPopup && (
         <div style={styles.successPopup}>
-          🎉 Application Submitted Successfully!
+          Application Submitted Successfully!
         </div>
       )}
 
@@ -740,15 +724,15 @@ function Jobs({ theme }) {
 
               <p style={styles.company}>{job.company}</p>
 
-              <p style={styles.meta}>📍 {job.location}</p>
+              <p style={styles.meta}> {job.location}</p>
 
               <p style={styles.desc}>{job.description}</p>
 
-              <p style={styles.info}>💰 Salary: {job.salary}</p>
+              <p style={styles.info}> Salary: {job.salary}</p>
 
-              <p style={styles.info}>⏳ Duration: {job.duration}</p>
+              <p style={styles.info}> Duration: {job.duration}</p>
 
-              <p style={styles.info}>🛠 Skills: {job.skills}</p>
+              <p style={styles.info}> Skills: {job.skills}</p>
 
               <button
                 style={styles.applyBtn}
@@ -903,7 +887,7 @@ function Jobs({ theme }) {
 
               <p style={styles.uploadText}>
                 {resumeFile
-                  ? `📄 ${resumeFile.name}`
+                  ? ` ${resumeFile.name}`
                   : "Click to Upload Resume"}
               </p>
             </label>
@@ -948,3 +932,5 @@ function Jobs({ theme }) {
 }
 
 export default Jobs;
+
+

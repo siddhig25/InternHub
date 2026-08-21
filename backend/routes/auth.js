@@ -1,16 +1,14 @@
-const router = require("express").Router();
+﻿const router = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// ===============================
-// ✅ SIGNUP
-// ===============================
+// SIGNUP
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    // ✅ CHECK EXISTING USER
+    //  CHECK EXISTING USER
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -19,16 +17,16 @@ router.post("/signup", async (req, res) => {
       });
     }
 
-    // ✅ HASH PASSWORD
+    // HASH PASSWORD
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ✅ CREATE USER
+    //  CREATE USER
     const user = new User({
       name,
       email,
       password: hashedPassword,
 
-      // ✅ DEFAULT ROLE
+      // DEFAULT ROLE
       role: role || "user",
     });
 
@@ -46,14 +44,12 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// ===============================
-// ✅ LOGIN
-// ===============================
+//  LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // ✅ FIND USER
+    //  FIND USER
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -62,7 +58,7 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // ✅ CHECK PASSWORD
+    // CHECK PASSWORD
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
@@ -71,7 +67,7 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // ✅ CREATE TOKEN
+    // CREATE TOKEN
     const token = jwt.sign(
       {
         id: user._id,
@@ -83,7 +79,7 @@ router.post("/login", async (req, res) => {
       }
     );
 
-    // ✅ SEND RESPONSE
+    // SEND RESPONSE
     res.json({
       token,
       name: user.name,
@@ -100,3 +96,5 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+
+

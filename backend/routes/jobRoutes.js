@@ -1,10 +1,10 @@
-const express = require("express");
+﻿const express = require("express");
 const router = express.Router();
 const Job = require("../models/Job");
 
-// 🔥 TEST ROUTE (IMPORTANT FOR DEBUGGING)
+//  TEST ROUTE (IMPORTANT FOR DEBUGGING)
 router.get("/", (req, res) => {
-  console.log("🔥 GET /api/jobs HIT");
+  console.log(" GET /api/jobs HIT");
 
   res.json([
     {
@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
   ]);
 });
 
-// ➤ CREATE JOB
+//  CREATE JOB
 router.post("/add", async (req, res) => {
   try {
     const job = new Job(req.body);
@@ -32,3 +32,5 @@ router.post("/add", async (req, res) => {
 });
 
 module.exports = router;
+
+

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+﻿import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { useState } from "react";
 import "./App.css";
@@ -47,3 +47,5 @@ function App() {
 }
 
 export default App;
+
+
