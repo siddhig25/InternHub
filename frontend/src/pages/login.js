@@ -43,16 +43,17 @@ function Login({ theme }) {
       localStorage.setItem("email", res.data.email);
 
       localStorage.setItem("role", res.data.role);
+      window.dispatchEvent(new Event("login"));
 
       alert(" Login Successful");
 
       // ADMIN REDIRECT
-      if (res.data.role === "admin") {
-        navigate("/admin");
-      } else {
-        window.location.href =
-          res.data.role === "admin" ? "/admin" : "/dashboard";
-      }
+    
+if (res.data.role === "admin") {
+  navigate("/admin");
+} else {
+  navigate("/dashboard");
+}
     } catch (error) {
       console.log(error);
 

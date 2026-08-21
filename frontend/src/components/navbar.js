@@ -1,8 +1,10 @@
-﻿import { Link, useNavigate } from "react-router-dom";
+﻿import { Link, useNavigate, useLocation } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 
 function Navbar({ theme, toggleTheme }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -11,19 +13,24 @@ function Navbar({ theme, toggleTheme }) {
   const isDark = theme === "dark";
 
   // CHECK SCREEN SIZE
-  const [isMobile, setIsMobile] = useState(
-    window.innerWidth <= 768
-  );
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const checkLogin = () => {
+      const token = localStorage.getItem("token");
+      const userRole = localStorage.getItem("role");
+
+      setIsLoggedIn(!!token);
+      setRole(userRole || "");
     };
 
-    window.addEventListener("resize", handleResize);
+    checkLogin();
 
-    return () =>
-      window.removeEventListener("resize", handleResize);
+    window.addEventListener("login", checkLogin);
+
+    return () => {
+      window.removeEventListener("login", checkLogin);
+    };
   }, []);
 
   // CHECK LOGIN + ROLE
@@ -41,7 +48,7 @@ function Navbar({ theme, toggleTheme }) {
   const logout = () => {
     localStorage.clear();
 
-    alert("âœ… Logged out successfully");
+    alert(" Logged out successfully");
 
     window.location.href = "/login";
   };
@@ -112,9 +119,7 @@ function Navbar({ theme, toggleTheme }) {
     themeBtn: {
       padding: isMobile ? "9px 14px" : "10px 16px",
       borderRadius: "12px",
-      border: isDark
-        ? "1px solid rgba(255,255,255,0.1)"
-        : "1px solid #ddd",
+      border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid #ddd",
       background: isDark ? "#1f1f1f" : "#fff",
       color: isDark ? "#fff" : "#111",
       cursor: "pointer",
@@ -169,7 +174,7 @@ function Navbar({ theme, toggleTheme }) {
           </Link>
 
           {/* DASHBOARD */}
-          {isLoggedIn && (
+          {isLoggedIn && role !== "admin" && (
             <Link
               to="/dashboard"
               style={styles.link}
@@ -183,7 +188,7 @@ function Navbar({ theme, toggleTheme }) {
           )}
 
           {/* APPLICATIONS */}
-          {isLoggedIn && (
+          {isLoggedIn && role !== "admin" && (
             <Link
               to="/applications"
               style={styles.link}
@@ -241,5 +246,3 @@ function Navbar({ theme, toggleTheme }) {
 }
 
 export default Navbar;
-
-

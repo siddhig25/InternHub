@@ -30,7 +30,11 @@ function Admin({ theme }) {
         },
       );
 
-      setApps(response.data);
+      setApps(
+  response.data.filter(
+    (app) => app.status !== "Accepted" && app.status !== "Rejected"
+  )
+);
     } catch (err) {
       console.log("Fetch Apps Error:", err);
 
