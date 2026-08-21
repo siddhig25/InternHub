@@ -26,6 +26,7 @@ function Jobs({ theme }) {
   // Submit Loading
   const [submitting, setSubmitting] = useState(false);
 
+  const [errors, setErrors] = useState({});
   // Form data
   const [formData, setFormData] = useState({
     fullName: "",
@@ -52,15 +53,13 @@ function Jobs({ theme }) {
 
       // Demo Jobs
       const extraJobs = [
-
         {
           _id: "1",
           title: "Frontend Developer Intern",
           company: "Microsoft",
           location: "Hyderabad",
           type: "Internship",
-          description:
-            "Develop scalable UI/UX using react.js",
+          description: "Develop scalable UI/UX using react.js",
           salary: "₹20,000/month",
           duration: "5 Months",
           skills: "React.js,html,css,javascript",
@@ -248,9 +247,16 @@ function Jobs({ theme }) {
   // HANDLE INPUT
   // =====================================
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
+    });
+
+    setErrors({
+      ...errors,
+      [name]: "",
     });
   };
 
@@ -279,6 +285,50 @@ function Jobs({ theme }) {
     }
 
     setResumeFile(file);
+    setErrors({
+      ...errors,
+      resume: "",
+    });
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email Address is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone Number is required";
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone = "Phone Number must be exactly 10 digits";
+    }
+
+    if (!formData.college.trim()) {
+      newErrors.college = "College Name is required";
+    }
+
+    if (!formData.skills.trim()) {
+      newErrors.skills = "Skills are required";
+    }
+
+    if (!formData.coverLetter.trim()) {
+      newErrors.coverLetter = "Cover Letter is required";
+    }
+
+    if (!resumeFile) {
+      newErrors.resume = "Resume is required";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   // =====================================
@@ -292,26 +342,7 @@ function Jobs({ theme }) {
       navigate("/login");
       return;
     }
-
-    if (
-      !formData.fullName.trim() ||
-      !formData.email.trim() ||
-      !formData.phone.trim() ||
-      !formData.college.trim()
-    ) {
-      alert("⚠ Please fill all required fields");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(formData.email)) {
-      alert("⚠ Invalid Email Address");
-      return;
-    }
-
-    if (formData.phone.length < 10) {
-      alert("⚠ Invalid Phone Number");
+    if (!validateForm()) {
       return;
     }
 
@@ -744,6 +775,18 @@ function Jobs({ theme }) {
               onChange={handleChange}
               style={styles.input}
             />
+            {errors.fullName && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  marginTop: "-10px",
+                  marginBottom: "15px",
+                }}
+              >
+                {errors.fullName}
+              </p>
+            )}
 
             <input
               type="email"
@@ -753,6 +796,18 @@ function Jobs({ theme }) {
               onChange={handleChange}
               style={styles.input}
             />
+            {errors.email && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  marginTop: "-10px",
+                  marginBottom: "15px",
+                }}
+              >
+                {errors.email}
+              </p>
+            )}
 
             <input
               type="text"
@@ -762,6 +817,18 @@ function Jobs({ theme }) {
               onChange={handleChange}
               style={styles.input}
             />
+            {errors.phone && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  marginTop: "-10px",
+                  marginBottom: "15px",
+                }}
+              >
+                {errors.phone}
+              </p>
+            )}
 
             <input
               type="text"
@@ -771,6 +838,18 @@ function Jobs({ theme }) {
               onChange={handleChange}
               style={styles.input}
             />
+            {errors.college && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  marginTop: "-10px",
+                  marginBottom: "15px",
+                }}
+              >
+                {errors.college}
+              </p>
+            )}
 
             <input
               type="text"
@@ -780,6 +859,18 @@ function Jobs({ theme }) {
               onChange={handleChange}
               style={styles.input}
             />
+            {errors.skills && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  marginTop: "-10px",
+                  marginBottom: "15px",
+                }}
+              >
+                {errors.skills}
+              </p>
+            )}
 
             <textarea
               name="coverLetter"
@@ -788,6 +879,18 @@ function Jobs({ theme }) {
               onChange={handleChange}
               style={styles.textarea}
             />
+            {errors.coverLetter && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  marginTop: "-10px",
+                  marginBottom: "15px",
+                }}
+              >
+                {errors.coverLetter}
+              </p>
+            )}
 
             {/* Resume Upload */}
             <label style={styles.uploadBox}>
@@ -804,6 +907,18 @@ function Jobs({ theme }) {
                   : "Click to Upload Resume"}
               </p>
             </label>
+            {errors.resume && (
+              <p
+                style={{
+                  color: "#ef4444",
+                  fontSize: "13px",
+                  marginTop: "-10px",
+                  marginBottom: "15px",
+                }}
+              >
+                {errors.resume}
+              </p>
+            )}
 
             {/* Buttons */}
             <div style={styles.popupBtns}>
@@ -816,11 +931,14 @@ function Jobs({ theme }) {
               </button>
 
               <button
-                style={styles.cancelBtn}
-                onClick={() => setShowForm(false)}
-              >
-                Cancel
-              </button>
+  style={styles.cancelBtn}
+  onClick={() => {
+    setShowForm(false);
+    setErrors({});
+  }}
+>
+  Cancel
+</button>
             </div>
           </div>
         </div>
