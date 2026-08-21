@@ -11,6 +11,7 @@ import Dashboard from "./pages/dashboard";
 import Footer from "./components/footer";
 import Applications from "./pages/applications";
 import Admin from "./pages/admin";
+import ScrollToTop from "./pages/ScrollToTop";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -19,8 +20,10 @@ function App() {
   };
   return (
     <BrowserRouter>
+    
       <div className={theme === "dark" ? "dark-theme" : "light-theme"}>
         <Navbar toggleTheme={toggleTheme} theme={theme} />
+        <ScrollToTop />
 
         <Routes>
           <Route path="/" element={<Home theme={theme} />} />
