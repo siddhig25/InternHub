@@ -12,6 +12,7 @@ import Footer from "./components/footer";
 import Applications from "./pages/applications";
 import Admin from "./pages/admin";
 import ScrollToTop from "./pages/ScrollToTop";
+import About from "./pages/about";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -39,6 +40,7 @@ function App() {
           />
 
           <Route path="/admin" element={<Admin theme={theme} />} />
+          <Route path="/about" element={<About theme={theme} />} />
         </Routes>
         <Footer />
       </div>

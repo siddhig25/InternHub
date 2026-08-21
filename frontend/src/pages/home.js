@@ -332,11 +332,11 @@ function Home({ theme }) {
             </button>
 
             <button
-              style={styles.secondaryBtn}
-              onClick={scrollToSection}
-            >
-              Learn More
-            </button>
+  style={styles.secondaryBtn}
+  onClick={() => navigate("/about")}
+>
+  Learn More
+</button>
           </div>
         </div>
 
